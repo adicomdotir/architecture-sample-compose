@@ -33,10 +33,10 @@ class NotesViewModel @Inject constructor(
     fun onEvent(event: NotesEvent) {
         when (event) {
             is NotesEvent.DeleteNote -> {
-//                viewModelScope.launch {
-//                    noteUseCases.deleteNoteUseCase(event.note)
-//                    recentlyDeletedNote = event.note
-//                }
+                viewModelScope.launch {
+                    noteUseCases.deleteNoteUseCase(event.note)
+                    recentlyDeletedNote = event.note
+                }
             }
             is NotesEvent.Order -> {
                 if (state.value.noteOrder::class == event.noteOrder::class &&
@@ -47,10 +47,10 @@ class NotesViewModel @Inject constructor(
                 getNotes(event.noteOrder)
             }
             is NotesEvent.RestoreNote -> {
-//                viewModelScope.launch {
-//                    noteUseCases.addNoteUseCase(recentlyDeletedNote ?: return@launch)
-//                    recentlyDeletedNote = null
-//                }
+                viewModelScope.launch {
+                    noteUseCases.addNoteUseCase(recentlyDeletedNote ?: return@launch)
+                    recentlyDeletedNote = null
+                }
             }
             is NotesEvent.ToggleOrderSection -> {
                 _state.value = state.value.copy(
