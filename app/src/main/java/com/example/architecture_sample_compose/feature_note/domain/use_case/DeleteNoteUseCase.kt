@@ -1,17 +1,13 @@
 package com.example.architecture_sample_compose.feature_note.domain.use_case
 
-import com.example.architecture_sample_compose.feature_note.domain.model.InvalidNoteException
 import com.example.architecture_sample_compose.feature_note.domain.model.Note
 import com.example.architecture_sample_compose.feature_note.domain.repository.NoteRepository
-import com.example.architecture_sample_compose.feature_note.domain.util.NoteOrder
-import com.example.architecture_sample_compose.feature_note.domain.util.OrderType
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class DeleteNoteUseCase(
-    private val repository: NoteRepository
+    private val noteRepository: NoteRepository
 ) {
+
     suspend operator fun invoke(note: Note) {
-        repository.deleteNote(note)
+        noteRepository.deleteNote(note)
     }
 }

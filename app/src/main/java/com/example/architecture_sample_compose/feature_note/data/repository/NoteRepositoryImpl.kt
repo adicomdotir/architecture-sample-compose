@@ -6,8 +6,9 @@ import com.example.architecture_sample_compose.feature_note.domain.repository.No
 import kotlinx.coroutines.flow.Flow
 
 class NoteRepositoryImpl(
-    private val noteDao: NoteDao
-): NoteRepository {
+  private val noteDao: NoteDao
+) : NoteRepository {
+
     override fun getNotes(): Flow<List<Note>> {
         return noteDao.getNotes()
     }
@@ -21,7 +22,8 @@ class NoteRepositoryImpl(
     }
 
     override suspend fun deleteNote(note: Note) {
-        return noteDao.deleteNote(note)
+       return noteDao.deleteNote(note)
     }
+
 
 }

@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.architecture_sample_compose.feature_note.domain.model.Note
 import com.example.architecture_sample_compose.feature_note.presentation.add_edit_note.components.TransparentHintTextField
 import kotlinx.coroutines.flow.collectLatest
@@ -29,10 +29,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AddEditNoteScreen(
-    navController: NavHostController,
+    navController: NavController,
     noteColor: Int,
     viewModel: AddEditNoteViewModel = hiltViewModel()
 ) {
+
     val titleState = viewModel.noteTitle.value
     val contentState = viewModel.noteContent.value
 
@@ -147,4 +148,5 @@ fun AddEditNoteScreen(
             )
         }
     }
+
 }

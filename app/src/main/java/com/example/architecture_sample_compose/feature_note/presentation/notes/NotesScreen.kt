@@ -1,6 +1,6 @@
 package com.example.architecture_sample_compose.feature_note.presentation.notes
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,38 +15,48 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.architecture_sample_compose.feature_note.presentation.notes.components.NoteItem
 import com.example.architecture_sample_compose.feature_note.presentation.notes.components.OrderSection
 import com.example.architecture_sample_compose.feature_note.presentation.util.Screen
 import kotlinx.coroutines.launch
 
+
 @Composable
 fun NotesScreen(
     navController: NavController,
     viewModel: NotesViewModel = hiltViewModel()
 ) {
+
     val state = viewModel.state.value
+
     val scaffoldState = rememberScaffoldState()
+
     val scope = rememberCoroutineScope()
 
     Scaffold(
         floatingActionButton = {
+
             FloatingActionButton(
                 onClick = { navController.navigate(Screen.AddEditNoteScreen.route) },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
+
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
+
             }
+
         },
         scaffoldState = scaffoldState
     ) {
+
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -58,13 +68,18 @@ fun NotesScreen(
                 )
                 IconButton(
                     onClick = {
-                        // viewModel.onEvent
+                        viewModel.onEvent(NotesEvent.ToggleOrderSection)
                     },
                 ) {
                     Icon(imageVector = Icons.Default.Sort, contentDescription = "Sort")
                 }
             }
-            AnimatedVisibility(visible = state.isOrderSectionVisible) {
+            AnimatedVisibility(
+                visible = state.isOrderSectionVisible,
+                enter = fadeIn() + slideInVertically(),
+                exit = fadeOut() + slideOutVertically()
+            ) {
+
                 OrderSection(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -102,6 +117,10 @@ fun NotesScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
+
         }
+
     }
+
+
 }

@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+// Creating a default radio button
 @Composable
 fun DefaultRadioButton(
     text: String,

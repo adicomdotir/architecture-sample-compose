@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.dp
 import com.example.architecture_sample_compose.feature_note.domain.util.NoteOrder
 import com.example.architecture_sample_compose.feature_note.domain.util.OrderType
 
+// Sort the data by order ascending or descending order
 @Composable
 fun OrderSection(
     modifier: Modifier = Modifier,
@@ -54,4 +55,3 @@ fun OrderSection(
     }
 
 }
-

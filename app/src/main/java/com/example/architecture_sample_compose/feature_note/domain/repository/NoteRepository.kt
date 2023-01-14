@@ -4,6 +4,7 @@ import com.example.architecture_sample_compose.feature_note.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {
+
     fun getNotes(): Flow<List<Note>>
 
     suspend fun getNoteById(noteId: Int): Note?

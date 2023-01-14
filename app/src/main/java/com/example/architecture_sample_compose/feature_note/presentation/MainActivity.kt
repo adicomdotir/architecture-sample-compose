@@ -12,15 +12,19 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.architecture_sample_compose.feature_note.presentation.add_edit_note.AddEditNoteScreen
-import com.example.architecture_sample_compose.feature_note.presentation.util.Screen
 import com.example.architecture_sample_compose.ui.theme.ArchitecturesamplecomposeTheme
+import com.example.architecture_sample_compose.feature_note.presentation.add_edit_note.AddEditNoteScreen
+import com.example.architecture_sample_compose.feature_note.presentation.notes.NotesScreen
+import com.example.architecture_sample_compose.feature_note.presentation.util.Screen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ArchitecturesamplecomposeTheme {
+                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -32,7 +36,14 @@ class MainActivity : ComponentActivity() {
                         startDestination = Screen.NotesScreen.route
                     ) {
                         composable(
-                            route = Screen.AddEditNoteScreen.route + "?noteId={noteId}&noteColor={noteColor}",
+                            route = Screen.NotesScreen.route
+                        ) {
+                            NotesScreen(navController = navController)
+                        }
+
+                        composable(
+                            route = Screen.AddEditNoteScreen.route +
+                                    "?noteId={noteId}&noteColor={noteColor}",
                             arguments = listOf(
                                 navArgument(name = "noteId") {
                                     type = NavType.IntType
@@ -48,8 +59,10 @@ class MainActivity : ComponentActivity() {
                             AddEditNoteScreen(navController = navController, noteColor = color)
                         }
                     }
+
                 }
             }
         }
     }
 }
+
