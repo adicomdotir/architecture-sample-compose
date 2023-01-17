@@ -2,13 +2,16 @@ package com.example.architecture_sample_compose.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.architecture_sample_compose.data.repository.CoinRepositoryImpl
-import com.example.architecture_sample_compose.domain.repository.NoteRepository
+import com.example.architecture_sample_compose.common.Constants
+import com.example.architecture_sample_compose.data.data_source.CoinPaprikaApi
 import com.example.architecture_sample_compose.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -17,32 +20,11 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteDatabase(app: Application): NoteDatabase {
-        return Room.databaseBuilder(
-            app,
-            NoteDatabase::class.java,
-            NoteDatabase.DATABASE_NAME
-        ).build()
+    fun providePaprikaApi(): CoinPaprikaApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CoinPaprikaApi::class.java)
     }
-
-
-    @Provides
-    @Singleton
-    fun provideNoteRepository(noteDatabase: NoteDatabase): NoteRepository {
-        return CoinRepositoryImpl(noteDatabase.noteDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideNoteUseCases(
-        repository: NoteRepository
-    ): NoteUseCases {
-        return NoteUseCases(
-            getNotesUseCase = GetNotesUseCase(repository),
-            deleteNoteUseCase = DeleteNoteUseCase(repository),
-            addNoteUseCase = AddNoteUseCase(repository),
-            getNoteUseCase = GetNoteUseCase((repository))
-        )
-    }
-
 }
