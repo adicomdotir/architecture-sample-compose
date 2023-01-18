@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.room.Room
 import com.example.architecture_sample_compose.common.Constants
 import com.example.architecture_sample_compose.data.data_source.CoinPaprikaApi
+import com.example.architecture_sample_compose.data.repository.CoinRepositoryImpl
+import com.example.architecture_sample_compose.domain.repository.CoinRepository
 import com.example.architecture_sample_compose.domain.use_case.*
 import dagger.Module
 import dagger.Provides
@@ -26,5 +28,11 @@ class AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CoinPaprikaApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoinRepository(api: CoinPaprikaApi): CoinRepository {
+        return CoinRepositoryImpl(api)
     }
 }

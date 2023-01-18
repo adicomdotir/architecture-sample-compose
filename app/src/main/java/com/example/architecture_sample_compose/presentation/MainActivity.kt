@@ -9,6 +9,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.architecture_sample_compose.presentation.coin_detail.CoinDetailScreen
+import com.example.architecture_sample_compose.presentation.coin_list.CoinListScreen
 import com.example.architecture_sample_compose.ui.theme.ArchitecturesamplecomposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,40 +28,24 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    TextButton(onClick = { /*TODO*/ }) {
-                        Text(text = "Btn")
-                    }
-//                    val navController = rememberNavController()
-//
-//                    NavHost(
-//                        navController = navController,
-//                        startDestination = Screen.NotesScreen.route
-//                    ) {
-//                        composable(
-//                            route = Screen.NotesScreen.route
-//                        ) {
-//                            NotesScreen(navController = navController)
-//                        }
-//
-//                        composable(
-//                            route = Screen.AddEditNoteScreen.route +
-//                                    "?noteId={noteId}&noteColor={noteColor}",
-//                            arguments = listOf(
-//                                navArgument(name = "noteId") {
-//                                    type = NavType.IntType
-//                                    defaultValue = -1
-//                                },
-//                                navArgument(name = "noteColor") {
-//                                    type = NavType.IntType
-//                                    defaultValue = -1
-//                                }
-//                            )
-//                        ) {
-//                            val color = it.arguments?.getInt("noteColor") ?: -1
-//                            AddEditNoteScreen(navController = navController, noteColor = color)
-//                        }
-//                    }
+                    val navController = rememberNavController()
 
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.CoinListScreen.route
+                    ) {
+                        composable(
+                            route = Screen.CoinListScreen.route
+                        ) {
+                            CoinListScreen(navController)
+                        }
+
+                        composable(
+                            route = Screen.CoinDetailScreen.route + "/{coinId}"
+                        ) {
+                            CoinDetailScreen()
+                        }
+                    }
                 }
             }
         }
