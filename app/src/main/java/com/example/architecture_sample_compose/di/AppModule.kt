@@ -1,7 +1,6 @@
 package com.example.architecture_sample_compose.di
 
 import android.app.Application
-import androidx.room.Room
 import com.example.architecture_sample_compose.common.Constants
 import com.example.architecture_sample_compose.data.data_source.CoinPaprikaApi
 import com.example.architecture_sample_compose.data.repository.CoinRepositoryImpl

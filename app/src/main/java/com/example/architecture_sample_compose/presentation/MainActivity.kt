@@ -1,6 +1,7 @@
 package com.example.architecture_sample_compose.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+                    Text("ashdflaksdflsf")
                     val navController = rememberNavController()
 
                     NavHost(
@@ -37,6 +39,7 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.CoinListScreen.route
                         ) {
+                            Log.e("TAG", "aaaaaaa")
                             CoinListScreen(navController)
                         }
 
