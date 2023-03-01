@@ -12,6 +12,9 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val myWords = listOf("sall=am", "testtwoo===wo")
+        myWords.forEach { word ->
+            println(word)
+        }
     }
 }
